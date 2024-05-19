@@ -3,7 +3,7 @@ import { AiFillDashboard, AiFillDatabase,  AiOutlineBulb, AiOutlineLogout } from
 
 export default function Sidebar() {
     return (
-        <div className="h-screen w-64 bg-primary text-white flex flex-col justify-between text-sm">
+        <div className="h-screen w-4/5 z-50 hidden bg-primary text-white flex flex-col justify-between text-sm fixed md:w-64 md:static">
             <div className="p-4">
                 <div className="flex flex-col items-center pb-10">
                     <img className="w-24 h-24 rounded-full mb-4" src="/images/profile.png" alt="Profile" />
