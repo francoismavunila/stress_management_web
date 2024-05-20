@@ -4,11 +4,14 @@ import { CiEdit } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 import AddProduct from "./AddProduct"
 import Sales from './Sales';
+import Restock from './Restock';
 import Modal from '../components/Modal';
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 function Inventory() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSalesModalOpen, setIsSalesModalOpen] = useState(false);
+    const [isStockModalOpen, setIsStockModalOpen] = useState(false);
     const [productName, setProductName] = useState("product")
   const inventory = [
     { name: 'Pepsi', category: 'Soft drinks', price: 0.50, itemsSold: 23, itemsRemaining: 4 },
@@ -26,6 +29,9 @@ function Inventory() {
       </Modal>
       <Modal isOpen={isSalesModalOpen} onClose={() => setIsSalesModalOpen(false)}>
         <Sales name={productName} />
+      </Modal>
+      <Modal isOpen={isStockModalOpen} onClose={() => setIsStockModalOpen(false)}>
+        <Restock name={productName} />
       </Modal>
       <div className='flex flex-row justify-between items-center'>
         <h1 className="text-2xl font-bold mb-5">Inventory</h1>
@@ -45,7 +51,7 @@ function Inventory() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items Sold</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items Remaining</th>
-              <th className="px-6 py-3"></th>
+              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">restock / sales</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -56,8 +62,9 @@ function Inventory() {
                 <td className="px-6 py-4 whitespace-nowrap">{product.price}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.itemsSold}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.itemsRemaining}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button onClick={() => {setProductName(product.name); setIsSalesModalOpen(true)}} className="text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex flex-row space-x-10">
+                  <button onClick={() => {setProductName(product.name); setIsStockModalOpen(true)}} className=" text-center text-indigo-600 hover:text-indigo-900"><IoIosAddCircleOutline/></button>
+                  <button onClick={() => {setProductName(product.name); setIsSalesModalOpen(true)}} className="text-center text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
                 </td>
               </tr>
             ))}
