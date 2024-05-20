@@ -15,7 +15,7 @@ export default function Sidebar({onClose}) {
                 </div>
                 <ul className='flex flex-col pl-8'>
                     <li className="mb-4 py-2">
-                        <Link href="/">
+                        <Link href="/dashboard">
                             <div className="flex items-center"><AiFillDashboard className="mr-2" /> Dashboard</div>
                         </Link>
                     </li>

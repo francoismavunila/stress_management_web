@@ -11,7 +11,7 @@ export default function Layout({ children }) {
         <div className="flex">
             {isSidebarOpen && <Sidebar onClose={() => setIsSidebarOpen(false)} />}
             <div className="flex flex-col w-full">
-                <nav className="bg-white text-black px-5 py-2 fixed w-full flex justify-between md:px-10 md:pl-64 md:left-0">
+                <nav className="bg-white z-40 text-black px-5 py-2 fixed w-full flex justify-between md:px-10 md:pl-64 md:left-0">
                     <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden">
                         <IoIosMenu className="text-3xl text-gray-600" />
                     </button>

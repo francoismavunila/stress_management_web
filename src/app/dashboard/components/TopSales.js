@@ -6,8 +6,8 @@ function TopSales({ salesData }) {
       <h2 className="text-xl mb-4">Sales Rankings</h2>
       {salesData.sort((a, b) => b.sales - a.sales).map((product, index) => (
         <div key={index} className="mb-2">
-          <h3 className="text-lg">{product.name}</h3>
-          <progress className="w-full" max={salesData[0].sales} value={product.sales}></progress>
+          <h6 className="text-lg">{product.name}   {product.sales}</h6>
+          <progress className="w-full h-1.5" max={salesData[0].sales} value={product.sales}>{product.sales}</progress>
         </div>
       ))}
     </div>
