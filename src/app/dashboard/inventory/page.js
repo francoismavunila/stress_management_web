@@ -3,10 +3,13 @@ import React,{useState} from 'react'
 import { CiEdit } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 import AddProduct from "./AddProduct"
+import Sales from './Sales';
 import Modal from '../components/Modal';
 
 function Inventory() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSalesModalOpen, setIsSalesModalOpen] = useState(false);
+    const [productName, setProductName] = useState("product")
   const inventory = [
     { name: 'Pepsi', category: 'Soft drinks', price: 0.50, itemsSold: 23, itemsRemaining: 4 },
     { name: 'Coca cola', category: 'Soft drinks', price: 1, itemsSold: 5, itemsRemaining: 20 },
@@ -20,6 +23,9 @@ function Inventory() {
     <div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <AddProduct />
+      </Modal>
+      <Modal isOpen={isSalesModalOpen} onClose={() => setIsSalesModalOpen(false)}>
+        <Sales name={productName} />
       </Modal>
       <div className='flex flex-row justify-between items-center'>
         <h1 className="text-2xl font-bold mb-5">Inventory</h1>
@@ -51,7 +57,7 @@ function Inventory() {
                 <td className="px-6 py-4 whitespace-nowrap">{product.itemsSold}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.itemsRemaining}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button className="text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
+                  <button onClick={() => {setProductName(product.name); setIsSalesModalOpen(true)}} className="text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
                 </td>
               </tr>
             ))}
