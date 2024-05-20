@@ -2,16 +2,10 @@
 import React,{useState} from 'react';
 import Overview from './components/Overvie';
 import TopSales from './components/TopSales';
-import DemandForecasting from './components/DemandForecasting';
 import LineChart from './components/LineChart';
 
 function Dashboard() {
-    function getRandomColor() {
-        var r = Math.floor(Math.random() * 256);          // Random between 0-255
-        var g = Math.floor(Math.random() * 256);          // Random between 0-255
-        var b = Math.floor(Math.random() * 256);          // Random between 0-255
-        return 'rgba(' + r + ', ' + g + ', ' + b + ', 1)'; // Collect all to a string
-    }
+
     const [chartData, setChartData] = useState({
         labels: ["mon", "tue", "wed", "thur", "friday","sat","sun"],
         datasets: [
