@@ -1,8 +1,12 @@
 import React from 'react'
+import General from './ProductInsights'
 
 function Analytics() {
   return (
-    <div>Analytics</div>
+    <div>
+        <h1 className="text-2xl font-bold mb-5">Analytics</h1>
+        <General/>
+    </div>
   )
 }
 
