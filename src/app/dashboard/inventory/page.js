@@ -1,8 +1,12 @@
-import React from 'react'
+'use client'
+import React,{useState} from 'react'
 import { CiEdit } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
+import AddProduct from "./AddProduct"
+import Modal from '../components/Modal';
 
 function Inventory() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
   const inventory = [
     { name: 'Pepsi', category: 'Soft drinks', price: 0.50, itemsSold: 23, itemsRemaining: 4 },
     { name: 'Coca cola', category: 'Soft drinks', price: 1, itemsSold: 5, itemsRemaining: 20 },
@@ -14,11 +18,19 @@ function Inventory() {
 
   return (
     <div>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <AddProduct />
+      </Modal>
       <div className='flex flex-row justify-between items-center'>
         <h1 className="text-2xl font-bold mb-5">Inventory</h1>
-        <button className="flex items-center text-white bg-primary p-1 my-3 rounded-lg"><IoMdAdd className="text-2xl"/></button>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="flex items-center text-white bg-primary p-1 my-3 rounded-lg"
+        >
+          <IoMdAdd className="text-2xl"/>
+        </button>
       </div>
-      <div className="overflow-auto mx--5 max-h-screen">
+      <div className="overflow-auto max-h-screen">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
