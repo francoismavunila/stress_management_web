@@ -1,5 +1,5 @@
 'use client'
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { CiEdit } from "react-icons/ci";
 import { IoMdAdd } from "react-icons/io";
 import AddProduct from "./AddProduct"
@@ -7,31 +7,64 @@ import Sales from './Sales';
 import Restock from './Restock';
 import Modal from '../components/Modal';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import axios from 'axios';
+import { MdDeleteOutline } from "react-icons/md";
 
 function Inventory() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSalesModalOpen, setIsSalesModalOpen] = useState(false);
     const [isStockModalOpen, setIsStockModalOpen] = useState(false);
     const [productName, setProductName] = useState("product")
-  const inventory = [
-    { name: 'Pepsi', category: 'Soft drinks', price: 0.50, itemsSold: 23, itemsRemaining: 4 },
-    { name: 'Coca cola', category: 'Soft drinks', price: 1, itemsSold: 5, itemsRemaining: 20 },
-    { name: 'Bread', category: 'Bread', price: 1, itemsSold: 20, itemsRemaining: 3 },
-    { name: 'lemon creams', category: 'snacks', price: 0.60, itemsSold: 12, itemsRemaining: 7 },
-    { name: 'hellos', category: 'snacks', price: 0.60, itemsSold: 21, itemsRemaining: 8 },
-    { name: 'go Slow', category: 'snacks', price: 0.60, itemsSold: 25, itemsRemaining: 5 },
-  ];
+    const [inventory, setInventory] = useState([]);
+    const [productId, setproductId] = useState([]);
+
+    const fetchInventory = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/products`, {
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        });
+        if (response.data) {
+          console.log(response.data)
+          setInventory(response.data);
+        } else {
+          console.log('No data received from API');
+        }
+      } catch (error) {
+        console.error('Error fetching inventory:', error);
+      }
+    };
+
+    useEffect(() => {  
+      fetchInventory();
+    }, []);
+    const deleteProduct = async (productId) => {
+      const token = localStorage.getItem('token');
+      try {
+        await axios.delete(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/products/${productId}`, {
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        });
+        fetchInventory();
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    };
+    
 
   return (
     <div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AddProduct />
+        <AddProduct reload={fetchInventory} />
       </Modal>
       <Modal isOpen={isSalesModalOpen} onClose={() => setIsSalesModalOpen(false)}>
-        <Sales name={productName} />
+        <Sales reload={fetchInventory} name={productName} productId={productId}/>
       </Modal>
       <Modal isOpen={isStockModalOpen} onClose={() => setIsStockModalOpen(false)}>
-        <Restock name={productName} />
+        <Restock reload={fetchInventory} productId={productId} name={productName} />
       </Modal>
       <div className='flex flex-row justify-between items-center'>
         <h1 className="text-2xl font-bold mb-5">Inventory</h1>
@@ -58,13 +91,14 @@ function Inventory() {
             {inventory.map((product, index) => (
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{product.category}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{product.category.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.price}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{product.itemsSold}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{product.itemsRemaining}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{product.items_sold}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{product.items_remaining}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex flex-row space-x-10">
-                  <button onClick={() => {setProductName(product.name); setIsStockModalOpen(true)}} className=" text-center text-indigo-600 hover:text-indigo-900"><IoIosAddCircleOutline/></button>
-                  <button onClick={() => {setProductName(product.name); setIsSalesModalOpen(true)}} className="text-center text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
+                  <button onClick={() => {setProductName(product.name);setproductId(product.id); setIsStockModalOpen(true)}} className=" text-center text-indigo-600 hover:text-indigo-900"><IoIosAddCircleOutline/></button>
+                  <button onClick={() => {setProductName(product.name); setproductId(product.id); setIsSalesModalOpen(true)}} className="text-center text-indigo-600 hover:text-indigo-900"><CiEdit/></button>
+                  <button onClick={() => deleteProduct(product.id)} className="text-center text-red-600 hover:text-red-900"><MdDeleteOutline/></button>
                 </td>
               </tr>
             ))}

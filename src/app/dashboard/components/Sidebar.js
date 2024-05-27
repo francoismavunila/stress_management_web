@@ -1,8 +1,15 @@
 import Link from 'next/link';
 import { AiFillDashboard, AiFillDatabase,  AiOutlineBulb, AiOutlineLogout } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useRouter } from 'next/navigation';
+
 
 export default function Sidebar({onClose}) {
+    const router = useRouter();
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        router.push('/signin');
+      };
     return (
         <div className="h-screen w-3/5 z-50 bg-primary text-white flex flex-col md:justify-between text-sm fixed md:w-64 md:static ">          
             <button onClick={onClose} className="self-end p-4 md:hidden">
@@ -33,9 +40,7 @@ export default function Sidebar({onClose}) {
                 </ul>
             </div>
             <div className="pl-14 pb-5">
-                <Link href="/logout">
-                    <div className="flex items-center text-slate-400"><AiOutlineLogout className='mr-2' /> Logout</div>
-                </Link>
+                <div className="flex items-center text-slate-400 cursor-pointer" onClick={handleLogout}><AiOutlineLogout className='mr-2' /> Logout</div>
             </div>
         </div>
     );
