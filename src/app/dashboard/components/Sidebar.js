@@ -1,4 +1,6 @@
+'use client'
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { AiFillDashboard, AiFillDatabase,  AiOutlineBulb, AiOutlineLogout } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
@@ -6,10 +8,22 @@ import { useRouter } from 'next/navigation';
 
 export default function Sidebar({onClose}) {
     const router = useRouter();
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const storedUsername = localStorage.getItem('username');
+        console.log("user", storedUsername)
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
+    }, []);
+
     const handleLogout = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('username');
         router.push('/signin');
       };
+    
     return (
         <div className="h-screen w-3/5 z-50 bg-primary text-white flex flex-col md:justify-between text-sm fixed md:w-64 md:static ">          
             <button onClick={onClose} className="self-end p-4 md:hidden">
@@ -18,7 +32,7 @@ export default function Sidebar({onClose}) {
             <div className="p-4">
                 <div className="flex flex-col items-center pb-10">
                     <img className="w-24 h-24 rounded-full mb-4" src="/images/profile.png" alt="Profile" />
-                    <h2 className="text-sm font-semibold">Ma Dube</h2>
+                    <h2 className="text-sm font-semibold">{username}</h2>
                 </div>
                 <ul className='flex flex-col pl-8'>
                     <li className="mb-4 py-2">

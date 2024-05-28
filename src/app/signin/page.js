@@ -22,6 +22,7 @@ function SignIn() {
     console.log(response.status)
     if (response.status === 200) {
       toast.success(response.data.message);
+      localStorage.setItem('username', response.data.data.username);
       localStorage.setItem('token', response.data.token);
       console.log("am about to nav")
       router.push('/dashboard');

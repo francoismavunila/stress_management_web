@@ -17,15 +17,15 @@ function Card({ icon, name, amount, green }) {
   );
 }
 
-function Overview() {
+function Overview({totalProducts, categories, inStock,outOfStock}) {
   return (
     <div className='bg-white rounded-lg py-3'>
         <p className='text-primary text-xl px-3'>Overview</p>
         <div className="flex flex-wrap justify-around px-3 py-2">
-        <Card icon={<MdOutlineProductionQuantityLimits className="text-2xl text-green-500" />} name="All Products" amount="$1000" green={true} />
-        <Card icon={<BiCategory className="text-2xl text-blue-500" />} name="Categories" amount="$2000" green={true} />
-        <Card icon={<RiStockLine className="text-2xl text-yellow-500" />} name="In stock" amount="$3000" green={true} />
-        <Card icon={<AiOutlineStock className="text-2xl text-red-500" />} name="Out of Stock" amount="$4000" green={false} />
+        <Card icon={<MdOutlineProductionQuantityLimits className="text-2xl text-green-500" />} name="All Products" amount={totalProducts} green={true} />
+        <Card icon={<BiCategory className="text-2xl text-blue-500" />} name="Categories" amount={categories} green={true} />
+        <Card icon={<RiStockLine className="text-2xl text-yellow-500" />} name="In stock" amount={inStock} green={true} />
+        <Card icon={<AiOutlineStock className="text-2xl text-red-500" />} name="Out of Stock" amount={outOfStock} green={false} />
         </div>
     </div>
   );
