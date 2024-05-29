@@ -10,7 +10,7 @@ function Signup() {
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  console.log("the api end point is", process.env.NEXT_PUBLIC_API)
+  console.log("the api end point is", process.env.NEXT_PUBLIC_API_ENDPOINT)
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
