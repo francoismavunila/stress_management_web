@@ -1,65 +1,113 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import Insight from "./Insight";
+import axios from 'axios';
 
 export default function ProductInsights() {
-  const insights = [
-    {
-      product: 'bread',
-      priceSuggestion: 'fine',
-      stockLevel: 'good',
-      stockSuggestion: 'stocking more, your price is good',
-      details: 'Your sales data shows that bread is a popular item in your location. Consider stocking more to meet demand.'
-    },
-    {
-      product: 'soft drink',
-      priceSuggestion: 'increase',
-      stockLevel: 'low',
-      stockSuggestion: 'stock less, less demand',
-      details: 'You sold more of Pepsi than Coca Cola. I suggest you stock more of Pepsi and Coca Cola because your location shows that people will buy more of these. To sell more Coke, consider decreasing the price to 0.80 dollars as most people in the location are at that price. \n Also weather data shows that it might be verry hot in the next 2 weeks, you can increase your soft drinks y 20 more pepsi and 5 coke so as to meet the demand  driven by hot weather'
-    },
-    {
-      product: 'snacks',
-      priceSuggestion: 'decrease',
-      stockLevel: 'high',
-      stockSuggestion: 'stock less',
-      details: 'Your sales data in your area shows that snacks are less popular in your location. Consider decreasing the price to increase sales. \n You might also have to look at selling snacks at a location closer to a school, as children are the most consumers'
-    },
-  ];
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentInsight, setCurrentInsight] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState("");
+  const [insights, setInsights] = useState();
+  const [loading, setLoading] = useState(false);
+  const [loaderMessage, setLoaderMessage] = useState('');
+  const [error, setError] = useState(null);
+  const loaderMessages = ['Gathering data...', 'Demand forecasting...', 'Waiting for the API...', 'Bringing everything together...'];
 
-  const handleOpenModal = (insight) => {
-    setCurrentInsight(insight);
-    setIsModalOpen(true);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/products`, {
+          headers: {
+            'Authorization': `Token ${token}`
+          }
+        });
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const fetchInsights = async (productId) => {
+    setLoading(true);
+    setLoaderMessage(loaderMessages[Math.floor(Math.random() * loaderMessages.length)]);
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/predict/${productId}`, {
+        headers: {
+          'Authorization': `Token ${token}`
+        }
+      });
+
+      setInsights({
+        product: response.data["product name"],
+        priceSuggestion: response.data["Price Suggestion"],
+        stockLevel: response.data["Stock Level"],
+        stockSuggestion: response.data["Stock Suggestion"],
+        moreInsights : response.data["More Insights"]
+      });
+      console.log(response.data)
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message,"reload page");
+    }
   };
 
+  const handleProductChange = (event) => {
+    setSelectedProduct(event.target.value);
+    fetchInsights(event.target.value);
+  };
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
-    <div className="General grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <Insight insight={currentInsight}/>
-        </Modal>
-      {insights.map((insight, index) => (
-        <div key={index} className={`rounded-lg overflow-hidden shadow-lg border-2 p-6 bg-white ${insight.stockLevel!='low'? 'border-green-500' : 'border-red-500'}`}>
-          <h3 className="font-bold text-xl mb-4">{insight.product}</h3>
-          <div className="mb-4">
-            <h6 className="font-bold">Price Suggestion:</h6>
-            <p>{insight.priceSuggestion}</p>
-          </div>
-          <div>
-            <h6 className="font-bold">Stock Level:</h6>
-            <p>{insight.stockLevel}</p>
-          </div>
-          <div>
-            <h6 className="font-bold">Stock Suggestion:</h6>
-            <p>{insight.stockSuggestion}</p>
-          </div>
-          <button onClick={() => handleOpenModal(insight)} className="bg-primary mt-4 hover:bg-mainbg hover:text-black text-white font-bold py-2 px-4 rounded">
-            More Insights
-          </button>
+    <>
+      <div className="">
+        <label htmlFor="product-select">Select a product:</label>
+        <select id="product-select" value={selectedProduct} onChange={handleProductChange}>
+          <option value="">--Please choose an option--</option>
+          {products.map((product) => (
+            <option key={product.id} value={product.id}>{product.name}</option>
+          ))}
+        </select>
+      </div>
+      <div className="General grid grid-cols-1 md:grid-cols-1 gap-4">
+      {loading ? (
+        <div className="flex flex-col justify-center items-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+          <p className="mt-4 text-lg font-semibold">{loaderMessage}</p>
         </div>
-      ))}
+      ) : (
+        insights && (
+          <div className={`rounded-lg mt-10 md:w-3/4 overflow-hidden shadow-lg border-2 p-6 bg-white ${insights.stockLevel !== 'low' ? 'border-green-500' : 'border-red-500'}`}>
+            <h3 className="font-bold text-xl mb-4">{insights.product}</h3>
+            <div className="mb-4">
+              <h6 className="font-bold">Price Suggestion:</h6>
+              <p>{insights.priceSuggestion}</p>
+            </div>
+            <div className="mb-4">
+              <h6 className="font-bold">Stock Level:</h6>
+              <p>{insights.stockLevel}</p>
+            </div>
+            <div className="mb-4">
+              <h6 className="font-bold">Stock Suggestion:</h6>
+              <p>{insights.stockSuggestion}</p>
+            </div>
+            <div className="mb-4">
+              <h6 className="font-bold">More Insights :</h6>
+              <p>{insights.moreInsights}</p>
+            </div>
+          </div>
+        )
+      )}
     </div>
+    </>
+
   );
 }
