@@ -15,7 +15,7 @@ export default function Layout({ children }) {
                     <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden">
                         <IoIosMenu className="text-3xl text-gray-600" />
                     </button>
-                    <p className="text-lg text-gray-600 text-primary font-bold md:text-2xl">Decision Support System</p>
+                    <p className="text-lg text-gray-600 text-primary font-bold md:text-2xl">Wellness App</p>
                     <div className="flex items-center gap-5">
                     <div className="relative hidden md:block">
                         <input className="border-2 border-gray-300 bg-white h-10 px-2 pr-8 rounded-full text-sm focus:outline-none"
