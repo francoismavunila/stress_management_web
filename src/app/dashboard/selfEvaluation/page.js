@@ -1,23 +1,37 @@
-'use client'
-import React, { useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation'
+'use client';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import SelfAssessmentTest from './components/SelfAssessmentTest';
 import SelfAssessmentResults from './components/SelfAssessmentResults';
 
-const App = () => {
-    const searchParams = useSearchParams()
-    let res = searchParams.get('res') || "true"
-    let resBoolean = res === 'true'
-  const [showResults, setShowResults] = useState(resBoolean);
+const Page = () => {
+  const [isClient, setIsClient] = useState(false);
+  const [showResults, setShowResults] = useState(false);
   const [responses, setResponses] = useState(null);
   const [classification, setClassification] = useState('');
   const [suggestedTools, setSuggestedTools] = useState([]);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
+  const searchParams = useSearchParams();
+  const res = searchParams.get('res') || 'true';
+  const resBoolean = res === 'true';
+
+  useEffect(() => {
+    setShowResults(resBoolean);
+  }, [resBoolean]);
+
   const handleSubmitTest = (responses) => {
     setResponses(responses);
-    const classification = classifyUser(responses); 
+    const classification = classifyUser(responses);
     setClassification(classification);
-    const tools = getSuggestedTools(classification); 
+    const tools = getSuggestedTools(classification);
     setSuggestedTools(tools);
     setShowResults(true);
   };
@@ -47,10 +61,12 @@ const App = () => {
         <SelfAssessmentTest onSubmit={handleSubmitTest} />
       ) : (
         <SelfAssessmentResults
+          classification={classification}
+          suggestedTools={suggestedTools}
         />
       )}
     </div>
   );
 };
 
-export default App;
+export default Page;
