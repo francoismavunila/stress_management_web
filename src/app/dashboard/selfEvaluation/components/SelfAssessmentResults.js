@@ -29,9 +29,11 @@ const SelfAssessmentResults = () => {
         {renderTools()}
       </div>
       <div className="mt-6">
-        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Start Using These Tools
-        </button>
+        <a href="/dashboard/checkin">
+          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Start Using These Tools
+          </button>
+        </a>
       </div>
     </div>
   );

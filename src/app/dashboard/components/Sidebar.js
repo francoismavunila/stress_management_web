@@ -42,12 +42,12 @@ export default function Sidebar({onClose}) {
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
-                        <Link href="/dashboard/inventory">
+                        <Link href="/dashboard/checkin">
                             <div className="flex items-center"><AiFillDatabase className='mr-2 text-primary' /> Daily CheckIn</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
-                        <Link href="/dashboard/analytics">
+                        <Link href="/dashboard/toolsEngagement">
                             <div className="flex items-center"><AiOutlineBulb className='mr-2 text-primary' /> Tools Engagement</div>
                         </Link>
                     </li>
