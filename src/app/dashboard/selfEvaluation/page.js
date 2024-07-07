@@ -6,7 +6,7 @@ import SelfAssessmentResults from './components/SelfAssessmentResults';
 
 const App = () => {
     const searchParams = useSearchParams()
-    let res = searchParams.get('res')
+    let res = searchParams.get('res') || "true"
     let resBoolean = res === 'true'
   const [showResults, setShowResults] = useState(resBoolean);
   const [responses, setResponses] = useState(null);
@@ -15,9 +15,9 @@ const App = () => {
 
   const handleSubmitTest = (responses) => {
     setResponses(responses);
-    const classification = classifyUser(responses); // Implement your classification logic
+    const classification = classifyUser(responses); 
     setClassification(classification);
-    const tools = getSuggestedTools(classification); // Implement your tool suggestion logic
+    const tools = getSuggestedTools(classification); 
     setSuggestedTools(tools);
     setShowResults(true);
   };
@@ -47,9 +47,6 @@ const App = () => {
         <SelfAssessmentTest onSubmit={handleSubmitTest} />
       ) : (
         <SelfAssessmentResults
-          responses={responses}
-          classification={classification}
-          suggestedTools={suggestedTools}
         />
       )}
     </div>

@@ -1,15 +1,18 @@
-import React from 'react';
+'use client'
+import React,{ useState } from 'react';
 
-const SelfAssessmentResults = ({ responses, classification, suggestedTools }) => {
+const SelfAssessmentResults = () => {
+  const [classification, setClassification] = useState('Improving Mood');
+  const [suggestedTools, setSuggestedTools] = useState(['Journaling', 'Affirmations', 'Quotes']);
   const renderTools = () => {
-    return suggestedTools?.map((tool, index) => (
+    return suggestedTools.map((tool, index) => (
       <div key={index} className="mb-2">
-        <h4 className="text-lg font-semibold">{tool.category}</h4>
-        <ul className="list-disc list-inside">
+        <h4 className="text-lg">{tool}</h4>
+        {/* <ul className="list-disc list-inside">
           {tool.tools.map((t, i) => (
             <li key={i}>{t}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     ));
   };
