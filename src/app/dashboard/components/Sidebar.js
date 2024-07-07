@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { AiFillDashboard, AiFillDatabase,  AiOutlineBulb, AiOutlineLogout } from 'react-icons/ai';
+import {  AiFillDatabase,  AiOutlineBulb, AiOutlineLogout } from 'react-icons/ai';
+import { FaHome } from "react-icons/fa";
 import { AiOutlineClose } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
 
@@ -31,23 +32,28 @@ export default function Sidebar({onClose}) {
             </button> 
             <div className="p-4 ">
                 <div className="flex flex-col items-center pb-10">
-                    <img className="w-24 h-24 rounded-full mb-4" src="/images/profile.png" alt="Profile" />
+                    <img className="w-20 rounded-full mb-4" src="/images/png/logo-color.png" alt="Profile" />
                     <h2 className="text-sm font-semibold">{username}</h2>
                 </div>
                 <ul className='flex flex-col pl-8'>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard">
-                            <div className="flex items-center"><AiFillDashboard className="mr-2" /> HomaPage</div>
+                            <div className="flex items-center"><FaHome className='mr-2 text-primary'/> HomaPage</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard/inventory">
-                            <div className="flex items-center"><AiFillDatabase className='mr-2' /> Daily CheckIn</div>
+                            <div className="flex items-center"><AiFillDatabase className='mr-2 text-primary' /> Daily CheckIn</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard/analytics">
-                            <div className="flex items-center"><AiOutlineBulb className='mr-2' /> Tools Engagement</div>
+                            <div className="flex items-center"><AiOutlineBulb className='mr-2 text-primary' /> Tools Engagement</div>
+                        </Link>
+                    </li>
+                    <li className="mb-4 py-2">
+                        <Link href="/dashboard/selfEvaluation">
+                            <div className="flex items-center"><AiOutlineBulb className='mr-2 text-primary' /> self Assessment</div>
                         </Link>
                     </li>
 

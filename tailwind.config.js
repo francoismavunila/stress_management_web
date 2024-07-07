@@ -16,7 +16,7 @@ module.exports = {
         primary: '#3300FF', 
         secondary: '#547C90',
         mainbg:'#FFFFFF',
-        secondarybg: "linear-gradient(to right, #FFFFFF 70%, #3300FF 100%)",
+        secondarybg: "#141414",
         headercolor:'#121212'
       },
     },

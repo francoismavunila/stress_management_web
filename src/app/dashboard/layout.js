@@ -8,21 +8,21 @@ import { IoIosMenu } from 'react-icons/io';
 export default function Layout({ children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     return (
-        <div className="flex">
+        <div className="flex" >
             {isSidebarOpen && <Sidebar onClose={() => setIsSidebarOpen(false)} />}
             <div className="flex flex-col w-full">
-                <nav className="bg-white z-40 text-black px-5 py-2 fixed w-full flex justify-between md:px-10 md:pl-64 md:left-0">
+                <nav className="z-40 text-black px-5 py-2 fixed bg-secondarybg w-full flex justify-between md:px-10 md:pl-64 md:left-0 " >
                     <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="md:hidden">
                         <IoIosMenu className="text-3xl text-gray-600" />
                     </button>
-                    <p className="text-lg text-gray-600 text-primary font-bold md:text-2xl">Wellness App</p>
+                    <p className="text-white text-primary font-bold md:text-2xl"></p>
                     <div className="flex items-center gap-5">
                     <div className="relative hidden md:block">
                         <input className="border-2 border-gray-300 bg-white h-10 px-2 pr-8 rounded-full text-sm focus:outline-none"
                             type="search" name="search" placeholder="Search" />
                         <IoIosSearch className="absolute top-0 right-0 text-2xl text-gray-300 m-2" />
                     </div>
-                     <IoIosNotificationsOutline className="text-2xl text-headercolor" />
+                     <IoIosNotificationsOutline className="text-2xl text-white" />
                     </div>
                 </nav>
                 <main className="h-screen px-5 py-2 pt-24 bg-mainbg text-black flex-grow md:px-10 overflow-auto">
