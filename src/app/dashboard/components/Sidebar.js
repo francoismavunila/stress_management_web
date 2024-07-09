@@ -26,13 +26,13 @@ export default function Sidebar({onClose}) {
       };
     
     return (
-        <div className="h-screen w-3/5 z-50 bg-secondarybg text-white flex flex-col md:justify-between text-sm fixed md:w-64 md:static ">          
+        <div className="h-screen w-3/5 z-50 bg-secondarybg text-black font-bold flex flex-col md:justify-between shadow-sm border-r border-slate-300 text-sm fixed md:w-64 md:static ">          
             <button onClick={onClose} className="self-end p-4 md:hidden">
                 <AiOutlineClose className="text-2xl" />
             </button> 
             <div className="p-4 ">
                 <div className="flex flex-col items-center pb-10">
-                    <img className="w-20 rounded-full mb-4" src="/images/png/logo-color.png" alt="Profile" />
+                    <img className="w-20 rounded-full border-2 border-slate-500 mb-4" src="/images/png/logo-color.png" alt="Profile" />
                     <h2 className="text-sm font-semibold">{username}</h2>
                 </div>
                 <ul className='flex flex-col pl-8'>
