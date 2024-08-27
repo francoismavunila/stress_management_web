@@ -1,18 +1,14 @@
 'use client'
 import React,{ useState } from 'react';
 
-const SelfAssessmentResults = () => {
-  const [classification, setClassification] = useState('Improving Mood');
-  const [suggestedTools, setSuggestedTools] = useState(['Journaling', 'Affirmations', 'Quotes']);
+const SelfAssessmentResults = ({results}) => {
+  const classification = results.group;
+  const suggestedTools = results.tools
+  
   const renderTools = () => {
-    return suggestedTools.map((tool, index) => (
+    return suggestedTools?.map((tool, index) => (
       <div key={index} className="mb-2">
         <h4 className="text-lg">{tool}</h4>
-        {/* <ul className="list-disc list-inside">
-          {tool.tools.map((t, i) => (
-            <li key={i}>{t}</li>
-          ))}
-        </ul> */}
       </div>
     ));
   };
@@ -31,7 +27,7 @@ const SelfAssessmentResults = () => {
       <div className="mt-6">
         <a href="/dashboard/checkin">
           <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Start Using These Tools
+            Use Tools
           </button>
         </a>
       </div>

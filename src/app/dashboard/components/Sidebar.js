@@ -10,14 +10,22 @@ import { useRouter } from 'next/navigation';
 export default function Sidebar({onClose}) {
     const router = useRouter();
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
-        const storedUsername = localStorage.getItem('username');
-        console.log("user", storedUsername)
-        if (storedUsername) {
-            setUsername(storedUsername);
+        const storedUser = localStorage.getItem('stm_user');
+        console.log("user", storedUser);
+      
+        try {
+          if (storedUser) {
+            const userObject = JSON.parse(storedUser); // Parse JSON string
+            setUsername(userObject.first_name +' '+ userObject.last_name); // Extract username from parsed object
+            setEmail(userObject.email)
         }
-    }, []);
+        } catch (error) {
+          console.error('Error parsing JSON from localStorage:', error);
+        }
+      }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -33,27 +41,28 @@ export default function Sidebar({onClose}) {
             <div className="p-4 ">
                 <div className="flex flex-col items-center pb-10">
                     <img className="w-20 rounded-full border-2 border-slate-500 mb-4" src="/images/png/logo-color.png" alt="Profile" />
-                    <h2 className="text-sm font-semibold">{username}</h2>
+                    <h2 className="text-sm font-semibold">{username ? username : "username"}</h2>
+                    <p className="text-xs text-gray-500">{email ? email : "email@.."}</p>
                 </div>
-                <ul className='flex flex-col pl-8'>
+                <ul className='flex flex-col pl-8 '>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard">
-                            <div className="flex items-center"><FaHome className='mr-2 text-primary'/> HomaPage</div>
+                            <div className="flex items-center font-medium"><FaHome className='mr-2 text-primary'/> HomaPage</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard/checkin">
-                            <div className="flex items-center"><AiFillDatabase className='mr-2 text-primary' /> Daily CheckIn</div>
+                            <div className="flex items-center font-medium"><AiFillDatabase className='mr-2 text-primary' /> Daily CheckIn</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard/toolsEngagement">
-                            <div className="flex items-center"><AiOutlineBulb className='mr-2 text-primary' /> Tools Engagement</div>
+                            <div className="flex items-center font-medium"><AiOutlineBulb className='mr-2 text-primary' /> Tools Engagement</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard/selfEvaluation">
-                            <div className="flex items-center"><AiOutlineBulb className='mr-2 text-primary' /> self Assessment</div>
+                            <div className="flex items-center font-medium"><AiOutlineBulb className='mr-2 text-primary' /> self Assessment</div>
                         </Link>
                     </li>
 

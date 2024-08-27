@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation"
 function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   console.log("the api end point is", process.env.NEXT_PUBLIC_API_ENDPOINT)
   const router = useRouter();
@@ -17,18 +17,21 @@ function Signup() {
     const user = {
       "first_name": firstName,
       "last_name":lastName,
-      "username": username,
-      "password":password
+      "email": email,
+      "password":password,
+      "is_active" : true,
+      "is_staff" : false,
   }
   try {
 
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/signup/`, user);
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/signup/`, user);
     console.log(response)
     console.log(response.status)
     if (response.status === 201) {
-      toast.success(response.data.message);
-      localStorage.setItem('username', response.data.data.username);
-      localStorage.setItem('token', response.data.token);
+      toast.success("success, redirecting to dashboard ....");
+      localStorage.setItem('stm_user', JSON.stringify(response.data.user));
+      localStorage.setItem('stm_token', response.data.access);
+      localStorage.setItem('stm_refresh', response.data.refresh);
       console.log("am about to nav")
       router.push('/dashboard');
       console.log("I have navigated")
@@ -48,7 +51,7 @@ function Signup() {
       <ToastContainer />
       <div className="max-w-md w-full space-y-8">
         <div>
-          <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow"/>
+          <img className="mx-auto h-12 w-auto" src="images/png/logo-no-background.png" alt="Workflow"/>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign up for an account
           </h2>
@@ -65,8 +68,8 @@ function Signup() {
               <input id="last-name" name="last-name" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)}/>
             </div>
             <div>
-              <label htmlFor="username" className="sr-only">Username</label>
-              <input id="username" name="username" type="text" autoComplete="username" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}/>
+              <label htmlFor="username" className="sr-only">Email</label>
+              <input id="email" name="email" type="text" autoComplete="email" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}/>
             </div>
             <div>
               <label htmlFor="password" className="sr-only">Password</label>
@@ -75,12 +78,12 @@ function Signup() {
           </div>
 
           <div>
-            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button type="submit" className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Sign up
             </button>
           </div>
         </form>
-        <p className='text-black italic'>Already have an account? <a className='text-blue font-bold' href='/signin'>Sign Up</a></p>
+        <p className='text-black italic'>Already have an account? <a className='text-lime-500 font-bold' href='/signin'>LogIn</a></p>
       </div>
     </div>
   )
