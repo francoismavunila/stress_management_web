@@ -51,6 +51,15 @@ const Journaling = () => {
        
         if (response.status === 201) {
           toast.success("success, keep journalig everyday, it improves your mood");
+          const resp = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_ENDPOINT}/tools/engangement/`,
+            { 'tool_name': 'Journaling' },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
           setEntry('');
           fetchHistory()
         } else {
