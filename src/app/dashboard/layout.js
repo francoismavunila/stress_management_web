@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { IoIosMenu } from 'react-icons/io';
 
 export default function Layout({ children }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return (
         <div className="flex" >
             {isSidebarOpen && <Sidebar onClose={() => setIsSidebarOpen(false)} />}
