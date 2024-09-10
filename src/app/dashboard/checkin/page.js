@@ -17,8 +17,6 @@ const DailyCheckIn = () => {
     'Quotes': '📜',
     'Time Management': '⏰',
     'Goal Setting': '🎯',
-    'Positive Quotes': '🌟',
-    'Task Prioritization': '✅',
   };
   
 

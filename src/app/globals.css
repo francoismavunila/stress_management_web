@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Add this to your global CSS file or a CSS module */
+.react-calendar__tile--active {
+  background-color: #48bb78 !important; /* Tailwind green-500 */
+  color: white !important;
+}

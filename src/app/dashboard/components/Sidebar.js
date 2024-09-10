@@ -34,7 +34,7 @@ export default function Sidebar({onClose}) {
       };
     
     return (
-        <div className="h-screen w-3/5 z-50 bg-secondarybg text-black font-bold flex flex-col md:justify-between shadow-sm border-r border-slate-300 text-sm fixed md:w-64 md:static ">          
+        <div className="h-screen hidden md:flex w-3/5 z-50 bg-secondarybg text-black font-bold flex-col md:justify-between shadow-sm border-r border-slate-300 text-sm fixed md:w-64 md:static ">          
             <button onClick={onClose} className="self-end p-4 md:hidden">
                 <AiOutlineClose className="text-2xl" />
             </button> 

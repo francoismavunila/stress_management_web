@@ -1,0 +1,49 @@
+.progress-container {
+    margin-top: 10px;
+  }
+  
+  input[type='range'] {
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .completed-label {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .in-progress-label {
+    color: orange;
+  }
+  
+  .add-goal-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal {
+    display: none;
+  }
+  
+  .modal.show {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+  }
+  
