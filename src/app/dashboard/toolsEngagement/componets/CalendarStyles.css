@@ -1,0 +1,27 @@
+.react-calendar__tile--weekend {
+  color: inherit !important; /* Remove the red color from weekend dates */
+  background-color: inherit !important; /* Reset background */
+}
+.engaged-class {
+  background-color: #4CAF50 !important; /* Green for engaged */
+  color: white !important;
+  border: 1px solid black !important; /* Add black border */
+}
+
+.missed-class {
+  background-color: #F44336 !important; /* Red for missed */
+  color: white !important;
+  border: 1px solid black !important; /* Add black border */
+}
+
+.today-class {
+  background-color: #FFEB3B !important; /* Yellow for today */
+  color: black !important;
+  border: 1px solid black !important; /* Add black border */
+}
+
+.upcoming-class {
+  background-color: #2196F3 !important; /* Blue for upcoming */
+  color: white !important;
+  border: 1px solid black !important; /* Add black border */
+}
