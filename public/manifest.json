@@ -1,7 +1,7 @@
 {
     "name": "Calm Mind",
     "short_name": "C.M.",
-    "theme_color": "#3300FF",
+    "theme_color": "#000000",
     "background_color": "#ffffff",
     "display": "fullscreen",
     "orientation": "any",

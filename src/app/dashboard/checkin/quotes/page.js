@@ -29,6 +29,7 @@ const QuoteGenerator = () => {
 
   // Fetch a quote based on the selected category
   const fetchQuote = async (selectedCategory) => {
+    console.log("th selceted category is", selectedCategory)
     const token = localStorage.getItem('stm_token');
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/quotes/get-quote/`, {
@@ -53,18 +54,17 @@ const QuoteGenerator = () => {
 
   // Save category to the backend and fetch the quote
   const handleCategorySubmit = async () => {
-    setHasCategory(true);
-    fetchQuote(category);
-    // const token = localStorage.getItem('stm_token');
-    // try {
-    //   await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/quotes/set-category/`, { category }, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   });
-    //   setHasCategory(true);
-    //   fetchQuote(category);
-    // } catch (error) {
-    //   console.error('Error setting category:', error);
-    // }
+
+    const token = localStorage.getItem('stm_token');
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/quotes/set-category/`, { category }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setHasCategory(true);
+      fetchQuote(category);
+    } catch (error) {
+      console.error('Error setting category:', error);
+    }
   };
 
   // Function to read out the quote

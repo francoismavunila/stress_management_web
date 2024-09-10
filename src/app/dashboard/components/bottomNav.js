@@ -15,7 +15,7 @@ export default function BottomNavbar() {
     };
 
     return (
-        <div className="w-full fixed bottom-0 left-0 z-50 bg-secondarybg text-black font-bold flex justify-between shadow-lg border-t border-slate-300 text-xs py-2 px-4  md:hidden">
+        <div className="w-full fixed bottom-0 left-0 z-50 bg-secondarybg text-black font-bold flex justify-between shadow-lg border-t border-slate-300 text-xs py-6 px-4  md:hidden">
             <Link href="/dashboard">
                 <div className="flex flex-col items-center">
                     <FaHome className='text-primary mb-1 text-lg' />
@@ -33,14 +33,14 @@ export default function BottomNavbar() {
             <Link href="/dashboard/toolsEngagement">
                 <div className="flex flex-col items-center">
                     <AiOutlineBulb className='text-primary mb-1 text-lg' />
-                    <span>Tools</span>
+                    <span>Engagement</span>
                 </div>
             </Link>
 
             <Link href="/dashboard/selfEvaluation">
                 <div className="flex flex-col items-center">
                     <AiOutlineBulb className='text-primary mb-1 text-lg' />
-                    <span>Self</span>
+                    <span>Test</span>
                 </div>
             </Link>
 

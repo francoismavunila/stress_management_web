@@ -29,7 +29,7 @@ export default function Layout({ children }) {
                      <IoIosNotificationsOutline className="text-2xl text-white" />
                     </div>
                 </nav>
-                <main className="h-screen px-0 py-0 pt-16 bg-mainbg text-black flex-grow md:px-0 overflow-auto">
+                <main className="h-screen px-0 py-0 pt-16 pb-12 bg-mainbg text-black flex-grow md:px-0 overflow-auto">
                     {children}
                     <BottomNavbar/>
                 </main>
