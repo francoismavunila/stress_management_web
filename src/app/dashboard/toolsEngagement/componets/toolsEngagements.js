@@ -55,8 +55,8 @@ const ToolsEngagement = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-200 to-blue-300 p-6 flex justify-center items-center">
-      <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-8">
+    <div className="min-h-screen bg-gradient-to-br from-green-200 to-blue-300 p-1 m-0 flex justify-center items-center">
+      <div className="w-full mx-auto bg-transparent rounded-lg shadow-lg p-8">
         <h1 className="text-4xl font-bold text-center text-blue-700 mb-8">Tool Engagement Summary</h1>
         <p className="text-center mb-8">Below is a summary of your engagement with different tools on a daily basis.</p>
 
