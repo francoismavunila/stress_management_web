@@ -28,7 +28,7 @@ const ToolsEngagement = () => {
         setTools(uniqueTools);
       } catch (error) {
         console.error('Error fetching engagements:', error);
-        toast.error("Error fetching engagements. Please try again.");
+        // toast.error("Error fetching engagements. Please try again.");
       }
     };
     fetchEngagements();

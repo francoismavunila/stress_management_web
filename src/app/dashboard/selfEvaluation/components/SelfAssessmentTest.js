@@ -65,6 +65,7 @@ const SelfAssessmentTest = () => {
         }
       } catch (error) {
         console.error('Error submitting responses:', error);
+        toast.error("error submitting the exam, try again");
       }
     }
   };
