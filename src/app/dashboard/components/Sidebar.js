@@ -47,7 +47,7 @@ export default function Sidebar({onClose}) {
                 <ul className='flex flex-col pl-8 '>
                     <li className="mb-4 py-2">
                         <Link href="/dashboard">
-                            <div className="flex items-center font-medium"><FaHome className='mr-2 text-primary'/> HomaPage</div>
+                            <div className="flex items-center font-medium"><FaHome className='mr-2 text-primary'/> Home</div>
                         </Link>
                     </li>
                     <li className="mb-4 py-2">
