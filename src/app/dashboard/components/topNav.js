@@ -1,7 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react';
 import { AiOutlineBell } from 'react-icons/ai';
+import { FcAbout } from "react-icons/fc";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function TopNav() {
     const [username, setUsername] = useState('');
@@ -41,7 +43,9 @@ export default function TopNav() {
 
             {/* Notifications icon on the right */}
             <div className="flex items-center">
-                <AiOutlineBell className="text-xl text-primary cursor-pointer" />
+                <Link href="/dashboard/about">
+                  <FcAbout className="text-xl text-primary cursor-pointer" />
+                </Link>
             </div>
         </div>
     );
