@@ -36,6 +36,10 @@ const About = () => {
             This project is a great part of my final grade and contribution towards the completion of my studies. I had the opportunity to seek advice and collaborate with my supervisor Mr. Marek Szczutkowski.
           </p>
         </section>
+
+        <footer className="text-center mt-8">
+          <p className="text-gray-600">Established October 2024</p>
+        </footer>
       </div>
     </div>
   );
